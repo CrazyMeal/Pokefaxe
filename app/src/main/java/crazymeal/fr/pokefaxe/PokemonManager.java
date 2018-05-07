@@ -25,12 +25,12 @@ public final class PokemonManager {
 
     private ArrayList<Pokemon> initPokemonList() {
         ArrayList<Pokemon> initList = new ArrayList<>();
-        initList.add(new Pokemon(0, "Floraffe"));
-        initList.add(new Pokemon(1, "Girbloom"));
-        initList.add(new Pokemon(2, "Lumbraffe"));
-        initList.add(new Pokemon(3, "Turtorrid"));
-        initList.add(new Pokemon(4, "Turtorch"));
-        initList.add(new Pokemon(5, "Briortoise"));
+        initList.add(new Pokemon(1, "Floraffe"));
+        initList.add(new Pokemon(2, "Girbloom"));
+        initList.add(new Pokemon(3, "Lumbraffe"));
+        initList.add(new Pokemon(4, "Turtorrid"));
+        initList.add(new Pokemon(5, "Turtorch"));
+        initList.add(new Pokemon(6, "Briortoise"));
         return  initList;
     }
 }

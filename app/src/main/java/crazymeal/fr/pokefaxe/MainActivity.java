@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
         this.toolbar = findViewById(R.id.toolbar);
         this.fab = findViewById(R.id.fab);
@@ -52,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
-        setContentView(R.layout.activity_main);
         setSupportActionBar(this.toolbar);
     }
 
