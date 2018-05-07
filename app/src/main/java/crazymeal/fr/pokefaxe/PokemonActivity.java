@@ -9,9 +9,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import crazymeal.fr.pokefaxe.model.Pokemon;
-import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 
-@Log
+@Slf4j
 public class PokemonActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
@@ -35,12 +35,12 @@ public class PokemonActivity extends AppCompatActivity {
     }
 
     private void initActivityFromIntent() {
-        log.info("Calling init activity from intent");
+        log.debug("Calling init activity from intent");
         Intent intent = getIntent();
         if (intent != null) {
             final Pokemon pokemon = intent.getParcelableExtra("pokemon");
             if (pokemon != null) {
-                log.info("Received pokemon: " + pokemon.toString());
+                log.debug("Received pokemon: " + pokemon.toString());
                 this.pokemonNumberView.setText(String.format("%03d", pokemon.getId()));
                 this.pokemonNameView.setText(pokemon.getName());
 
