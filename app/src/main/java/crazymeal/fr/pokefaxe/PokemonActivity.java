@@ -38,7 +38,8 @@ public class PokemonActivity extends AppCompatActivity {
         log.debug("Calling init activity from intent");
         Intent intent = getIntent();
         if (intent != null) {
-            final Pokemon pokemon = intent.getParcelableExtra("pokemon");
+            final int pokemonPosition = intent.getIntExtra("pokemon_position", -1);
+            final Pokemon pokemon = PokemonManager.getInstance().getPokemonList().get(pokemonPosition);
             if (pokemon != null) {
                 log.debug("Received pokemon: " + pokemon.toString());
                 this.pokemonNumberView.setText(String.format("%03d", pokemon.getId()));

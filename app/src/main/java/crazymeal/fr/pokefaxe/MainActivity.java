@@ -1,17 +1,15 @@
 package crazymeal.fr.pokefaxe;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.view.View;
 
 import java.util.ArrayList;
 
@@ -21,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private FloatingActionButton fab;
-    private ListView pokemonList;
+    private RecyclerView pokemonListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
         this.toolbar = findViewById(R.id.toolbar);
         this.fab = findViewById(R.id.fab);
-        this.pokemonList = this.findViewById(R.id.list_pokemon);
+        this.pokemonListView = this.findViewById(R.id.list_pokemon);
 
         this.fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,17 +38,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        LinearLayoutManager pokemonLayoutManager = new LinearLayoutManager(this);
+        this.pokemonListView.setLayoutManager(pokemonLayoutManager);
+
         final ArrayList<Pokemon> pokemonList = PokemonManager.getInstance().getPokemonList();
         if (pokemonList != null && !pokemonList.isEmpty()) {
-            this.pokemonList.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, pokemonList));
-            this.pokemonList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Intent intent = new Intent(MainActivity.this, PokemonActivity.class);
-                    intent.putExtra("pokemon", pokemonList.get(position));
-                    startActivity(intent);
-                }
-            });
+            final PokemonRecyclerAdapter pokemonRecyclerAdapter = new PokemonRecyclerAdapter(this, pokemonList);
+            this.pokemonListView.setAdapter(pokemonRecyclerAdapter);
         }
 
         setSupportActionBar(this.toolbar);
