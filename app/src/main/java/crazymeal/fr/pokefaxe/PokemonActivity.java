@@ -44,6 +44,7 @@ public class PokemonActivity extends AppCompatActivity {
                 log.debug("Received pokemon: " + pokemon.toString());
                 this.pokemonNumberView.setText(String.format("%03d", pokemon.getId()));
                 this.pokemonNameView.setText(pokemon.getName());
+                this.setTitle(pokemon.getName());
 
                 Context applicationContext = this.getApplicationContext();
                 int imageIdentifier = applicationContext.getResources().getIdentifier("pokemon_" + String.format("%03d", pokemon.getId()), "drawable", applicationContext.getPackageName());
