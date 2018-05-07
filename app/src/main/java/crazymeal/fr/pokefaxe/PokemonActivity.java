@@ -2,11 +2,8 @@ package crazymeal.fr.pokefaxe;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.TextView;
 
 import crazymeal.fr.pokefaxe.model.Pokemon;
@@ -21,7 +18,7 @@ public class PokemonActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.toolbar = (Toolbar) findViewById(R.id.toolbar);
+        this.toolbar = findViewById(R.id.toolbar);
         this.pokemonNumberView = findViewById(R.id.text_pokemon_number);
         this.pokemonNameView = findViewById(R.id.text_pokemon_name);
 

@@ -27,9 +27,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.toolbar = (Toolbar) findViewById(R.id.toolbar);
-        this.fab = (FloatingActionButton) findViewById(R.id.fab);
-        this.pokemonList = this.<ListView>findViewById(R.id.list_pokemon);
+        this.toolbar = findViewById(R.id.toolbar);
+        this.fab = findViewById(R.id.fab);
+        this.pokemonList = this.findViewById(R.id.list_pokemon);
 
         this.fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
         final ArrayList<Pokemon> pokemonList = PokemonManager.getInstance().getPokemonList();
         if (pokemonList != null && !pokemonList.isEmpty()) {
-            this.pokemonList.setAdapter(new ArrayAdapter<Pokemon>(this, android.R.layout.simple_list_item_1, pokemonList));
+            this.pokemonList.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, pokemonList));
             this.pokemonList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
