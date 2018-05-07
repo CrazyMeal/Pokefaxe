@@ -13,21 +13,32 @@ import crazymeal.fr.pokefaxe.model.Pokemon;
 
 public class PokemonActivity extends AppCompatActivity {
 
+    private Toolbar toolbar;
+    private TextView pokemonNumberView;
+    private TextView pokemonNameView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        this.toolbar = (Toolbar) findViewById(R.id.toolbar);
+        this.pokemonNumberView = findViewById(R.id.text_pokemon_number);
+        this.pokemonNameView = findViewById(R.id.text_pokemon_name);
+
+        this.initActivityFromIntent();
+
         setContentView(R.layout.activity_pokemon);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        Intent intent = getIntent();
-        Pokemon pokemon = intent.getParcelableExtra("pokemon");
-
-        TextView pokemonNumberView = findViewById(R.id.text_pokemon_number);
-        TextView pokemonNameView = findViewById(R.id.text_pokemon_name);
-
-        pokemonNumberView.setText(String.valueOf(pokemon.getId()));
-        pokemonNameView.setText(pokemon.getName());
+        setSupportActionBar(this.toolbar);
     }
 
+    private void initActivityFromIntent() {
+        Intent intent = getIntent();
+        if (intent != null) {
+            final Pokemon pokemon = intent.getParcelableExtra("pokemon");
+            if (pokemon != null) {
+                this.pokemonNumberView.setText(String.valueOf(pokemon.getId()));
+                this.pokemonNameView.setText(pokemon.getName());
+            }
+        }
+    }
 }

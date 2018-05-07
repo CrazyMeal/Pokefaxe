@@ -13,19 +13,25 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+
 import crazymeal.fr.pokefaxe.model.Pokemon;
 
 public class MainActivity extends AppCompatActivity {
 
+    private Toolbar toolbar;
+    private FloatingActionButton fab;
+    private ListView pokemonList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        this.toolbar = (Toolbar) findViewById(R.id.toolbar);
+        this.fab = (FloatingActionButton) findViewById(R.id.fab);
+        this.pokemonList = this.<ListView>findViewById(R.id.list_pokemon);
+
+        this.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -33,17 +39,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ListView pokemonList = this.<ListView>findViewById(R.id.list_pokemon);
-        pokemonList.setAdapter(new ArrayAdapter<Pokemon>(this, android.R.layout.simple_list_item_1, PokemonManager.getInstance().getPokemonList()));
+        final ArrayList<Pokemon> pokemonList = PokemonManager.getInstance().getPokemonList();
+        if (pokemonList != null && !pokemonList.isEmpty()) {
+            this.pokemonList.setAdapter(new ArrayAdapter<Pokemon>(this, android.R.layout.simple_list_item_1, pokemonList));
+            this.pokemonList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent intent = new Intent(MainActivity.this, PokemonActivity.class);
+                    intent.putExtra("pokemon", pokemonList.get(position));
+                    startActivity(intent);
+                }
+            });
+        }
 
-        pokemonList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(MainActivity.this, PokemonActivity.class);
-                intent.putExtra("pokemon", PokemonManager.getInstance().getPokemonList().get(position));
-                startActivity(intent);
-            }
-        });
+        setContentView(R.layout.activity_main);
+        setSupportActionBar(this.toolbar);
     }
 
     @Override
